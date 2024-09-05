@@ -1,5 +1,6 @@
 plugins {
     alias(libs.plugins.runique.android.application.compose)
+    alias(libs.plugins.runique.jvm.ktor)
     alias(libs.plugins.mapsplatform.secrets.plugin)
 }
 
@@ -13,15 +14,6 @@ android {
         }
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
