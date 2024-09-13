@@ -40,7 +40,6 @@ import com.dscoding.core.presentation.designsystem.CrossIcon
 import com.dscoding.core.presentation.designsystem.EmailIcon
 import com.dscoding.core.presentation.designsystem.Poppins
 import com.dscoding.core.presentation.designsystem.RuniqueDarkRed
-import com.dscoding.core.presentation.designsystem.RuniqueGray
 import com.dscoding.core.presentation.designsystem.RuniqueGreen
 import com.dscoding.core.presentation.designsystem.RuniqueTheme
 import com.dscoding.core.presentation.designsystem.components.GradientBackground
@@ -67,7 +66,6 @@ fun RegisterScreenRoot(
                     event.error.asString(context),
                     Toast.LENGTH_LONG
                 ).show()
-
             }
 
             RegisterEvent.RegistrationSuccess -> {
@@ -83,7 +81,13 @@ fun RegisterScreenRoot(
     }
 
     RegisterScreen(
-        state = viewModel.state, onAction = viewModel::onAction
+        state = viewModel.state, onAction = { action ->
+            when (action) {
+                is RegisterAction.OnLoginClick -> onSignInClick()
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
@@ -107,7 +111,7 @@ fun RegisterScreen(
             val annotatedString = buildAnnotatedString {
                 withStyle(
                     style = SpanStyle(
-                        fontFamily = Poppins, color = RuniqueGray
+                        fontFamily = Poppins, color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 ) {
                     append(stringResource(id = R.string.already_have_an_account) + " ")
@@ -179,7 +183,7 @@ fun RegisterScreen(
             RuniqueActionButton(
                 text = stringResource(id = R.string.register),
                 isLoading = state.isRegistering,
-                enabled = state.canRegister,
+                enabled = state.canRegister && !state.isRegistering,
                 modifier = Modifier.fillMaxWidth(),
                 onClick = {
                     onAction(RegisterAction.OnRegisterClick)

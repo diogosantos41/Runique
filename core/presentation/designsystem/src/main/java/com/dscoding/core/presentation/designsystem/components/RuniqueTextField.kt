@@ -48,10 +48,10 @@ import com.dscoding.core.presentation.designsystem.RuniqueTheme
 fun RuniqueTextField(
     state: TextFieldState,
     startIcon: ImageVector?,
-    endIcon: ImageVector?,
     hint: String,
     title: String?,
     modifier: Modifier = Modifier,
+    endIcon: ImageVector? = null,
     error: String? = null,
     keyboardType: KeyboardType = KeyboardType.Text,
     additionalInfo: String? = null

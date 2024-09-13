@@ -41,7 +41,7 @@ class RegisterViewModel(
                 val isValidEmail = userDataValidator.isValidEmail(email.toString())
                 state = state.copy(
                     isEmailValid = isValidEmail,
-                    canRegister = isValidEmail && state.passwordValidationState.isValidPassword && !state.isRegistering
+                    canRegister = isValidEmail && state.passwordValidationState.isValidPassword
                 )
             }.launchIn(viewModelScope)
 
@@ -50,7 +50,7 @@ class RegisterViewModel(
                 val passwordValidationState = userDataValidator.isValidPassword(password.toString())
                 state = state.copy(
                     passwordValidationState = passwordValidationState,
-                    canRegister = passwordValidationState.isValidPassword && state.isEmailValid && !state.isRegistering
+                    canRegister = passwordValidationState.isValidPassword && state.isEmailValid
                 )
             }.launchIn(viewModelScope)
     }

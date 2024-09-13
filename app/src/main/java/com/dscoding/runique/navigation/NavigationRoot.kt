@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.dscoding.auth.presentation.intro.IntroScreenRoot
+import com.dscoding.auth.presentation.login.LoginScreenRoot
 import com.dscoding.auth.presentation.register.RegisterScreenRoot
 
 @Composable
@@ -17,6 +18,7 @@ fun NavigationRoot(navController: NavHostController) {
         startDestination = AuthDestination.ROOT_ROUTE
     ) {
         authGraph(navController)
+        runGraph(navController)
     }
 }
 
@@ -52,7 +54,31 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
             )
         }
         composable(route = AuthDestination.Login.route) {
-            Text(text = "Login")
+            LoginScreenRoot(
+                onSignUpClick = {
+                    navController.navigate(AuthDestination.Register.route) {
+                        popUpTo(AuthDestination.Login.route) {
+                            inclusive = true
+                            saveState = true
+                        }
+                        restoreState = true
+                    }
+                },
+                onSuccessfulLogin = {
+                    navController.navigate(RunDestination.ROOT_ROUTE)
+                }
+            )
+        }
+    }
+}
+
+private fun NavGraphBuilder.runGraph(navController: NavHostController) {
+    navigation(
+        startDestination = RunDestination.Overview.route,
+        route = RunDestination.ROOT_ROUTE
+    ) {
+        composable(RunDestination.Overview.route) {
+            Text(text = "Run")
         }
     }
 }
