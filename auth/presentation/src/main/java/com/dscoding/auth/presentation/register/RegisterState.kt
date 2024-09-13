@@ -12,6 +12,6 @@ data class RegisterState(
     val password: TextFieldState = TextFieldState(),
     val passwordValidationState: PasswordValidationState = PasswordValidationState(),
     val isRegistering: Boolean = false,
-    val canRegister: Boolean = isEmailValid && passwordValidationState.isValidPassword && !isRegistering
+    val canRegister: Boolean = false
 
 )
