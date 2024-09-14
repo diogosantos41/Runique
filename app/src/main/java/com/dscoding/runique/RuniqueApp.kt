@@ -4,6 +4,7 @@ import android.app.Application
 import com.dscoding.auth.data.di.authDataModule
 import com.dscoding.auth.presentation.di.authViewModelModule
 import com.dscoding.core.data.di.coreDataModule
+import com.dscoding.run.presentation.di.runViewModelModule
 import com.dscoding.runique.di.appModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -25,7 +26,8 @@ class RuniqueApp : Application() {
                 authDataModule,
                 authViewModelModule,
                 appModule,
-                coreDataModule
+                coreDataModule,
+                runViewModelModule
             )
         }
     }

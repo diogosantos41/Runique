@@ -1,6 +1,5 @@
 package com.dscoding.runique.navigation
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
@@ -10,12 +9,18 @@ import androidx.navigation.navigation
 import com.dscoding.auth.presentation.intro.IntroScreenRoot
 import com.dscoding.auth.presentation.login.LoginScreenRoot
 import com.dscoding.auth.presentation.register.RegisterScreenRoot
+import com.dscoding.run.presentation.active_run.ActiveRunScreenRoot
+import com.dscoding.run.presentation.run_overview.RunOverviewScreenRoot
 
 @Composable
-fun NavigationRoot(navController: NavHostController) {
+fun NavigationRoot(navController: NavHostController, isLoggedIn: Boolean) {
     NavHost(
         navController = navController,
-        startDestination = AuthDestination.ROOT_ROUTE
+        startDestination = if (isLoggedIn) {
+            RunDestination.ROOT_ROUTE
+        } else {
+            AuthDestination.ROOT_ROUTE
+        }
     ) {
         authGraph(navController)
         runGraph(navController)
@@ -77,8 +82,19 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
         startDestination = RunDestination.Overview.route,
         route = RunDestination.ROOT_ROUTE
     ) {
-        composable(RunDestination.Overview.route) {
-            Text(text = "Run")
+        composable(route = RunDestination.Overview.route) {
+            RunOverviewScreenRoot(
+                onStartRunClick = {
+                    navController.navigate(RunDestination.ActiveRun.route)
+                }
+            )
+        }
+        composable(route = RunDestination.ActiveRun.route) {
+            ActiveRunScreenRoot(
+                onBackClick = {
+                    navController.navigateUp()
+                }
+            )
         }
     }
 }
