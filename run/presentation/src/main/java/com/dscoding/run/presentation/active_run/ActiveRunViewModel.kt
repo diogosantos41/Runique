@@ -23,7 +23,7 @@ class ActiveRunViewModel(
     private val eventChannel = Channel<ActiveRunEvent>()
     val events = eventChannel.receiveAsFlow()
 
-    private val _hasLocationPermission = MutableStateFlow(true)
+    private val _hasLocationPermission = MutableStateFlow(false)
 
     init {
         _hasLocationPermission
@@ -35,12 +35,13 @@ class ActiveRunViewModel(
                 }
             }
             .launchIn(viewModelScope)
-        Timber.d("New location: CAN YOU SEE THIS?")
+
         runningTracker
             .currentLocation
             .onEach { location ->
                 Timber.d("New location: $location")
             }
+            .launchIn(viewModelScope)
     }
 
     fun onAction(action: ActiveRunAction) {
