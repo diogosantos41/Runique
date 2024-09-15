@@ -1,4 +1,4 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
+@file:OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterial3Api::class)
 
 package com.dscoding.core.presentation.designsystem.components
 
@@ -61,7 +61,7 @@ fun RuniqueToolbar(
             Row(
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                startContent?.invoke()
+                startContent.invoke()
                 Spacer(modifier = Modifier.width(8.dp))
                 Text(
                     text = title,
