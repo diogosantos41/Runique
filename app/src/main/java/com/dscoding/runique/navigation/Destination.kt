@@ -21,5 +21,5 @@ sealed class RunDestination(route: String) : Destination(route) {
     }
 
     data object Overview : RunDestination("run_overview")
-    data object ActiveRun : RunDestination("run_active_run")
+    data object ActiveRun : RunDestination("active_run")
 }
