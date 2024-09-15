@@ -105,6 +105,9 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
                 onBackClick = {
                     navController.navigateUp()
                 },
+                onFinish = {
+                    navController.navigateUp()
+                },
                 onServiceToggle = { shouldServiceRun ->
                     if (shouldServiceRun) {
                         context.startService(

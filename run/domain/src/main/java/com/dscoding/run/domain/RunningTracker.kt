@@ -30,7 +30,7 @@ class RunningTracker(
     val runData = _runData.asStateFlow()
 
     private val _isTracking = MutableStateFlow(false)
-     val isTracking = _isTracking.asStateFlow()
+    val isTracking = _isTracking.asStateFlow()
 
     private val isObservingLocation = MutableStateFlow(false)
 
@@ -50,7 +50,7 @@ class RunningTracker(
         )
 
     init {
-        isTracking
+        _isTracking
             .onEach { isTracking ->
                 if (!isTracking) {
                     val newList = buildList {
@@ -76,7 +76,7 @@ class RunningTracker(
 
         currentLocation
             .filterNotNull()
-            .combineTransform(isTracking) { location, isTracking ->
+            .combineTransform(_isTracking) { location, isTracking ->
                 if (isTracking) {
                     emit(location)
                 }
@@ -118,7 +118,7 @@ class RunningTracker(
     }
 
     fun setIsTracking(isTracking: Boolean) {
-        _isTracking.value = isTracking
+        this._isTracking.value = isTracking
     }
 
     fun startObservingLocation() {
@@ -127,6 +127,13 @@ class RunningTracker(
 
     fun stopObservingLocation() {
         isObservingLocation.value = false
+    }
+
+    fun finishRun() {
+        stopObservingLocation()
+        setIsTracking(false)
+        _elapsedTime.value = Duration.ZERO
+        _runData.value = RunData()
     }
 }
 
