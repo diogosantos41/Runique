@@ -76,13 +76,13 @@ fun ActiveRunScreen(
         onAction(
             ActiveRunAction.SubmitLocationPermissionInfo(
                 acceptedLocationPermission = hasCourseLocationPermission && hasFineLocationPermission,
-                showLocationRationale = showLocationRationale
+                showLocationPermissionRationale = showLocationRationale
             )
         )
         onAction(
             ActiveRunAction.SubmitNotificationPermissionInfo(
                 acceptedNotificationPermission = hasNotificationPermission,
-                showNotificationRationale = showNotificationRationale
+                showNotificationPermissionRationale = showNotificationRationale
             )
         )
     }
@@ -95,13 +95,13 @@ fun ActiveRunScreen(
         onAction(
             ActiveRunAction.SubmitLocationPermissionInfo(
                 acceptedLocationPermission = context.hasLocationPermission(),
-                showLocationRationale = showLocationRationale
+                showLocationPermissionRationale = showLocationRationale
             )
         )
         onAction(
             ActiveRunAction.SubmitNotificationPermissionInfo(
                 acceptedNotificationPermission = context.hasNotificationPermission(),
-                showNotificationRationale = showNotificationRationale
+                showNotificationPermissionRationale = showNotificationRationale
             )
         )
 
@@ -147,16 +147,16 @@ fun ActiveRunScreen(
             )
         }
     }
-    if (state.showLocationRationale || state.showNotificationRationale) {
+    if (state.showLocationPermissionRationale || state.showNotificationPermissionRationale) {
         RuniqueDialog(
             title = stringResource(id = R.string.permission_required),
             onDismiss = { /* Normal dismissing not allowed for permissions */ },
             description = when {
-                state.showLocationRationale && state.showNotificationRationale -> {
+                state.showLocationPermissionRationale && state.showNotificationPermissionRationale -> {
                     stringResource(id = R.string.location_notification_rationale)
                 }
 
-                state.showLocationRationale -> {
+                state.showLocationPermissionRationale -> {
                     stringResource(R.string.location_rationale)
                 }
 
