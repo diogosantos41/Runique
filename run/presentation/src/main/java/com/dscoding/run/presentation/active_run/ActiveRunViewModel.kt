@@ -116,8 +116,6 @@ class ActiveRunViewModel(
                     showLocationPermissionRationale = false
                 )
             }
-
-            else -> Unit
         }
     }
 }
