@@ -4,8 +4,6 @@ import android.content.Context
 import androidx.work.CoroutineWorker
 import androidx.work.WorkerParameters
 import com.dscoding.core.domain.run.RunRepository
-import com.dscoding.core.domain.util.DataError
-import com.dscoding.core.domain.util.Result
 
 class FetchRunsWorker(
     context: Context,

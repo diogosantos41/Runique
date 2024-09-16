@@ -17,7 +17,11 @@ import com.dscoding.run.presentation.run_overview.RunOverviewScreenRoot
 import com.dscoding.runique.MainActivity
 
 @Composable
-fun NavigationRoot(navController: NavHostController, isLoggedIn: Boolean) {
+fun NavigationRoot(
+    navController: NavHostController,
+    isLoggedIn: Boolean,
+    onAnalyticsClick: () -> Unit
+) {
     NavHost(
         navController = navController,
         startDestination = if (isLoggedIn) {
@@ -27,7 +31,7 @@ fun NavigationRoot(navController: NavHostController, isLoggedIn: Boolean) {
         }
     ) {
         authGraph(navController)
-        runGraph(navController)
+        runGraph(navController, onAnalyticsClick)
     }
 }
 
@@ -81,7 +85,10 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
     }
 }
 
-private fun NavGraphBuilder.runGraph(navController: NavHostController) {
+private fun NavGraphBuilder.runGraph(
+    navController: NavHostController,
+    onAnalyticsClick: () -> Unit
+) {
     navigation(
         startDestination = RunDestination.Overview.route,
         route = RunDestination.ROOT_ROUTE
@@ -90,6 +97,14 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
             RunOverviewScreenRoot(
                 onStartRunClick = {
                     navController.navigate(RunDestination.ActiveRun.route)
+                },
+                onAnalyticsClick = onAnalyticsClick,
+                onLogoutClick = {
+                    navController.navigate(AuthDestination.ROOT_ROUTE) {
+                        popUpTo(RunDestination.ROOT_ROUTE) {
+                            inclusive = true
+                        }
+                    }
                 }
             )
         }
