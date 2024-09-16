@@ -138,7 +138,7 @@ class MainActivity : ComponentActivity() {
             Intent()
                 .setClassName(
                     packageName,
-                    "com.plcoding.analytics.analytics_feature.AnalyticsActivity"
+                    "com.dscoding.analytics.analytics_feature.AnalyticsActivity"
                 )
                 .also(::startActivity)
             return

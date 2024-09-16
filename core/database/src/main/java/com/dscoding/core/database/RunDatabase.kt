@@ -2,6 +2,7 @@ package com.dscoding.core.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.dscoding.core.database.dao.AnalyticsDao
 import com.dscoding.core.database.dao.RunDao
 import com.dscoding.core.database.dao.RunPendingSyncDao
 import com.dscoding.core.database.entity.DeletedRunSyncEntity
@@ -20,4 +21,5 @@ abstract class RunDatabase : RoomDatabase() {
 
     abstract val runDao: RunDao
     abstract val runPendingSyncDao: RunPendingSyncDao
+    abstract val analyticsDao: AnalyticsDao
 }
